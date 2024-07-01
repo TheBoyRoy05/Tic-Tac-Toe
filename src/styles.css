@@ -1,15 +1,17 @@
 :root {
   --size: 15vw;
-  --bg: rgb(90, 211, 211);
+  --primary: rgb(90, 211, 211);
+  --secondary: #97dbeb;
+  --corner-radius: 7px;
 }
 
 body {
-  background-color: var(--bg);
+  background-color: var(--primary);
 }
 
 .O, .X {
   margin: 0;
-  color: var(--bg);
+  color: var(--primary);
 }
 
 .X {
@@ -17,7 +19,7 @@ body {
 }
 
 .square {
-  background-color: #97dbeb;
+  background-color: var(--secondary);
   border: 1px solid #000;
   float: left;
   line-height: var(--size);
@@ -32,10 +34,12 @@ body {
 }
 
 .board {
-  padding: 7px;
+  padding: 5px;
   background-color: #fff;
-  border: 2px #000 solid;
-  border-radius: 15px;
+  border: 1px solid black;
+  border-radius: calc(var(--corner-radius) * 2);
+  background-clip: border-box;
+  box-shadow: 5px 5px black;
 }
 
 .board-row:after {
@@ -45,19 +49,19 @@ body {
 }
 
 .board > div:first-of-type > button:first-of-type {
-  border-top-left-radius: 5px;
+  border-top-left-radius: var(--corner-radius);
 }
 
 .board > div:first-of-type > button:last-of-type {
-  border-top-right-radius: 5px;
+  border-top-right-radius: var(--corner-radius);
 }
 
 .board > div:last-of-type > button:first-of-type {
-  border-bottom-left-radius: 5px;
+  border-bottom-left-radius: var(--corner-radius);
 }
 
 .board > div:last-of-type > button:last-of-type {
-  border-bottom-right-radius: 5px;
+  border-bottom-right-radius: var(--corner-radius);
 }
 
 .status {
@@ -67,6 +71,24 @@ body {
   font-weight: bold;
   -webkit-text-stroke: 1px white;
   margin-bottom: 20px;
+}
+
+.option {
+  margin: 0 calc(var(--size) / 5);
+  width: calc(var(--size) * 1.1);
+  height: calc(var(--size) / 3);
+  background-color: var(--secondary);
+  color: #000;
+  font-weight: bold;
+  font-size: calc(var(--size) / 6);
+  border: 2px solid white;
+  border-radius: 7px;
+  background-clip: border-box;
+  box-shadow: 3px 3px black;
+}
+
+.option:hover {
+  cursor: crosshair;
 }
 
 .game {

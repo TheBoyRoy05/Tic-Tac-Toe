@@ -62,7 +62,7 @@ function Board({ xIsNext, board, update }) {
 // Option button component
 function Option({ text, handleClick }) {
   return (
-    <button className="btn" onClick={handleClick}>
+    <button className="option" onClick={handleClick}>
       {text}
     </button>
   );
