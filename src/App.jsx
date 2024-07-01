@@ -12,10 +12,10 @@ function Square({ value, handleClick }) {
 }
 
 function Board({ xIsNext, board, update }) {
-  function handleClick(row, col) {
-    if (calculateWinner(board) || board[row][col]) return;
-    const newBoard = board.slice();
-    newBoard[row][col] = xIsNext ? "X" : "O";
+  function handleClick(rowIndex, columnIndex) {
+    if (calculateWinner(board) || board[rowIndex][columnIndex]) return;
+    const newBoard = board.map((row) => row.slice());
+    newBoard[rowIndex][columnIndex] = xIsNext ? "X" : "O";
     update(newBoard);
   }
 
@@ -24,20 +24,23 @@ function Board({ xIsNext, board, update }) {
     ? "Winner: " + winner
     : "Next player: " + (xIsNext ? "X" : "O");
 
-  const renderSquares = (row, r) => {
-    return row.map((col, c) => (
-      <Square value={board[r][c]} handleClick={() => handleClick(r, c)} key={c}/>
+  const renderSquares = (row, rowIndex) => {
+    return row.map((column, columnIndex) => (
+      <Square
+        value={board[rowIndex][columnIndex]}
+        handleClick={() => handleClick(rowIndex, columnIndex)}
+        key={columnIndex}
+      />
     ));
   };
 
-  const renderRows = 
-    board.map((row, r) => {
-      return (
-        <div className="board-row" key={r}>
-          {renderSquares(row, r)}
-        </div>
-      );
-    });
+  const renderRows = board.map((row, rowIndex) => {
+    return (
+      <div className="board-row" key={rowIndex}>
+        {renderSquares(row, rowIndex)}
+      </div>
+    );
+  });
 
   return (
     <div className="game-board">
@@ -72,17 +75,14 @@ export default function App() {
       <li key={move}>
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
-    )
+    );
   });
-
 
   return (
     <div className="game">
       <Board xIsNext={xIsNext} board={board} update={update} />
       <div className="game-info">
-        <ol className="moves">
-          {moves}
-        </ol>
+        <ol className="moves">{moves}</ol>
       </div>
     </div>
   );
