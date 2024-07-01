@@ -1,0 +1,21 @@
+.square {
+  --size: 40px;
+  background: #fff;
+  border: 1px solid #000;
+  float: left;
+  line-height: var(--size);
+  font-size: calc(var(--size) * 5 / 8);
+  font-weight: bold;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  height: var(--size);
+  width: var(--size);
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
