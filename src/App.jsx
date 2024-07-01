@@ -3,6 +3,7 @@ import "./styles.css";
 
 const BOARD_SIZE = 3;
 
+// Square component for each cell
 function Square({ value, handleClick }) {
   return (
     <button className="square" onClick={handleClick}>
@@ -11,20 +12,26 @@ function Square({ value, handleClick }) {
   );
 }
 
+// Board component for the entire board
 function Board({ xIsNext, board, update }) {
   function handleClick(rowIndex, columnIndex) {
+    // Validate the click
     if (calculateWinner(board) || board[rowIndex][columnIndex]) return;
+
+    // Update board
     const newBoard = board.map((row) => row.slice());
     newBoard[rowIndex][columnIndex] = xIsNext ? "X" : "O";
     update(newBoard);
   }
 
+  // Update status
   const winner = calculateWinner(board);
   const status = winner
     ? "Winner: " + winner
     : "Next player: " + (xIsNext ? "X" : "O");
 
-  const renderSquares = (row, rowIndex) => {
+  // Render each row
+  const renderRow = (row, rowIndex) => {
     return row.map((column, columnIndex) => (
       <Square
         value={board[rowIndex][columnIndex]}
@@ -34,50 +41,54 @@ function Board({ xIsNext, board, update }) {
     ));
   };
 
-  const renderRows = board.map((row, rowIndex) => {
+  // Render the board
+  const renderBoard = board.map((row, rowIndex) => {
     return (
       <div className="board-row" key={rowIndex}>
-        {renderSquares(row, rowIndex)}
+        {renderRow(row, rowIndex)}
       </div>
     );
   });
 
+  // Render the board and status
   return (
     <div className="game-board">
       <div className="status">{status}</div>
-      <div className="board">{renderRows}</div>
+      <div className="board">{renderBoard}</div>
     </div>
   );
 }
 
+// Component for the entire app
 export default function App() {
+  // Initialize the board as a 2D array of empty strings
   const initBoard = Array.from({ length: BOARD_SIZE }, () =>
     Array.from({ length: BOARD_SIZE }, () => "")
   );
+
   const [history, setHistory] = useState([initBoard]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const board = history[currentMove];
 
+  // Update the board and add it to history
   function update(newBoard) {
     const newHistory = [...history.slice(0, currentMove + 1), newBoard];
     setHistory(newHistory);
     setCurrentMove(newHistory.length - 1);
   }
 
-  function jumpTo(move) {
-    setCurrentMove(move);
-  }
-
+  // Create buttons to jump to past moves
   const moves = history.map((board, move) => {
     const description = "Go to " + (move > 0 ? "move #" + move : "game start");
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button onClick={() => setCurrentMove(move)}>{description}</button>
       </li>
     );
   });
 
+  // Render the entire app
   return (
     <div className="game">
       <Board xIsNext={xIsNext} board={board} update={update} />
@@ -88,6 +99,7 @@ export default function App() {
   );
 }
 
+// Returns the winner if there is one, or null if there isn't
 function calculateWinner(board) {
   // Check all rows for a win
   for (const row of board) {
