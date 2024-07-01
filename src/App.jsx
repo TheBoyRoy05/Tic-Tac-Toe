@@ -25,12 +25,12 @@ function Board({ xIsNext, board, update }) {
     : "Next player: " + (xIsNext ? "X" : "O");
 
   const renderSquares = (row, r) => {
-    return row.map((col, c) => {
-      <Square value={board[r][c]} handleClick={() => handleClick(r, c)} />;
-    })
+    return row.map((col, c) => (
+      <Square value={board[r][c]} handleClick={() => handleClick(r, c)} />
+    ));
   };
 
-  const renderRows = (board) =>
+  const renderRows = 
     board.map((row, r) => {
       return (
         <div className="board-row" key={r}>
@@ -42,7 +42,7 @@ function Board({ xIsNext, board, update }) {
   return (
     <>
       <div className="status">{status}</div>
-      <div className="board">{renderRows(board)}</div>
+      <div className="board">{renderRows}</div>
     </>
   );
 }
@@ -57,8 +57,9 @@ export default function App() {
   const board = history[currentMove];
 
   function update(newBoard) {
-    setHistory([...history.slice(0, currentMove + 1), newBoard]);
-    setCurrentMove(history.length - 1);
+    const newHistory = [...history.slice(0, currentMove + 1), newBoard];
+    setHistory(newHistory);
+    setCurrentMove(newHistory.length - 1);
   }
 
   function jumpTo(move) {
