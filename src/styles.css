@@ -19,3 +19,13 @@
   content: "";
   display: table;
 }
+
+.status {
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}

@@ -26,7 +26,7 @@ function Board({ xIsNext, board, update }) {
 
   const renderSquares = (row, r) => {
     return row.map((col, c) => (
-      <Square value={board[r][c]} handleClick={() => handleClick(r, c)} />
+      <Square value={board[r][c]} handleClick={() => handleClick(r, c)} key={c}/>
     ));
   };
 
@@ -40,10 +40,10 @@ function Board({ xIsNext, board, update }) {
     });
 
   return (
-    <>
+    <div className="game-board">
       <div className="status">{status}</div>
       <div className="board">{renderRows}</div>
-    </>
+    </div>
   );
 }
 
@@ -66,7 +66,26 @@ export default function App() {
     setCurrentMove(move);
   }
 
-  return <Board xIsNext={xIsNext} board={board} update={update} />;
+  const moves = history.map((board, move) => {
+    const description = "Go to " + (move > 0 ? "move #" + move : "game start");
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    )
+  });
+
+
+  return (
+    <div className="game">
+      <Board xIsNext={xIsNext} board={board} update={update} />
+      <div className="game-info">
+        <ol className="moves">
+          {moves}
+        </ol>
+      </div>
+    </div>
+  );
 }
 
 function calculateWinner(board) {
@@ -85,9 +104,9 @@ function calculateWinner(board) {
   // Check both diagonals for a win
   const primaryDiagonal = [];
   const secondaryDiagonal = [];
-  for (let i = 0; i < board.length; i++) {
+  for (let i = 0; i < BOARD_SIZE; i++) {
     primaryDiagonal.push(board[i][i]);
-    secondaryDiagonal.push(board[-1 - i][i]);
+    secondaryDiagonal.push(board[BOARD_SIZE - i - 1][i]);
   }
   if (primaryDiagonal.every((elem) => elem === primaryDiagonal[0]))
     return primaryDiagonal[0];
