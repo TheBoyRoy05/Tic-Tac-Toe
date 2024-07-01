@@ -7,28 +7,28 @@ const BOARD_SIZE = 3;
 function Square({ value, handleClick }) {
   return (
     <button className="square" onClick={handleClick}>
-      {value}
+      <p className={value}>{value}</p>
     </button>
   );
 }
 
 // Board component for the entire board
 function Board({ xIsNext, board, update }) {
+  // Update status
+  const winner = calculateWinner(board);
+  const status = winner
+    ? "Winner: " + winner
+    : "Next player: " + (xIsNext ? "X" : "O");
+
   function handleClick(rowIndex, columnIndex) {
     // Validate the click
-    if (calculateWinner(board) || board[rowIndex][columnIndex]) return;
+    if (winner || board[rowIndex][columnIndex]) return;
 
     // Update board
     const newBoard = board.map((row) => row.slice());
     newBoard[rowIndex][columnIndex] = xIsNext ? "X" : "O";
     update(newBoard);
   }
-
-  // Update status
-  const winner = calculateWinner(board);
-  const status = winner
-    ? "Winner: " + winner
-    : "Next player: " + (xIsNext ? "X" : "O");
 
   // Render each row
   const renderRow = (row, rowIndex) => {
@@ -59,6 +59,15 @@ function Board({ xIsNext, board, update }) {
   );
 }
 
+// Option button component
+function Option({ text, handleClick }) {
+  return (
+    <button className="btn" onClick={handleClick}>
+      {text}
+    </button>
+  );
+}
+
 // Component for the entire app
 export default function App() {
   // Initialize the board as a 2D array of empty strings
@@ -78,9 +87,16 @@ export default function App() {
     setCurrentMove(newHistory.length - 1);
   }
 
+  // Restarts the game
+  function Restart(){
+    setHistory([initBoard]);
+    setCurrentMove(0);
+  }
+
   // Create buttons to jump to past moves
   const moves = history.map((board, move) => {
-    const description = "Go to " + (move > 0 ? "move #" + move : "game start");
+    if (move <= 0) return;
+    const description = "Go to move #" + move;
     return (
       <li key={move}>
         <button onClick={() => setCurrentMove(move)}>{description}</button>
@@ -95,6 +111,10 @@ export default function App() {
       <div className="game-info">
         <ol className="moves">{moves}</ol>
       </div>
+      <div className="options">
+        <Option text="Restart" handleClick={Restart} />
+        <Option text="Time Travel" handleClick={Restart} />
+      </div>
     </div>
   );
 }
@@ -103,27 +123,27 @@ export default function App() {
 function calculateWinner(board) {
   // Check all rows for a win
   for (const row of board) {
-    if (row.every((elem) => elem === row[0])) return row[0];
+    if (row[0] && row.every((elem) => elem === row[0])) return row[0];
   }
 
   // Check all columns for a win
   const transpose = (matrix) =>
     matrix[0].map((col, i) => matrix.map((row) => row[i]));
   for (const col of transpose(board)) {
-    if (col.every((elem) => elem === col[0])) return col[0];
+    if (col[0] && col.every((elem) => elem === col[0])) return col[0];
   }
 
   // Check both diagonals for a win
-  const primaryDiagonal = [];
-  const secondaryDiagonal = [];
+  const diagonal1 = [];
+  const diagonal2 = [];
   for (let i = 0; i < BOARD_SIZE; i++) {
-    primaryDiagonal.push(board[i][i]);
-    secondaryDiagonal.push(board[BOARD_SIZE - i - 1][i]);
+    diagonal1.push(board[i][i]);
+    diagonal2.push(board[BOARD_SIZE - i - 1][i]);
   }
-  if (primaryDiagonal.every((elem) => elem === primaryDiagonal[0]))
-    return primaryDiagonal[0];
-  if (secondaryDiagonal.every((elem) => elem === secondaryDiagonal[0]))
-    return secondaryDiagonal[0];
+  if (diagonal1[0] && diagonal1.every((elem) => elem === diagonal1[0]))
+    return diagonal1[0];
+  if (diagonal2[0] && diagonal2.every((elem) => elem === diagonal2[0]))
+    return diagonal2[0];
 
   return null;
 }
