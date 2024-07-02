@@ -1,8 +1,12 @@
 :root {
-  --size: 15vw;
+  --board-size: 60vh;
+  --num-squares: 3;
+  --square-size: calc(var(--board-size) / var(--num-squares));
   --primary: rgb(90, 211, 211);
   --secondary: #97dbeb;
   --corner-radius: 7px;
+  --shadow-size: calc(var(--board-size) / 90);
+  --board-shadow-size: calc(var(--shadow-size) * 1.1);
 }
 
 body {
@@ -22,15 +26,15 @@ body {
   background-color: var(--secondary);
   border: 1px solid #000;
   float: left;
-  line-height: var(--size);
-  font-size: calc(var(--size) * 5 / 8);
+  line-height: var(--square-size);
+  font-size: calc(var(--square-size) * 5 / 8);
   font-weight: bold;
   -webkit-text-stroke: 2px black;
   padding: 0;
   margin: 2px;
   text-align: center;
-  height: var(--size);
-  width: var(--size);
+  height: var(--square-size);
+  width: var(--square-size);
 }
 
 .board {
@@ -39,7 +43,7 @@ body {
   border: 1px solid black;
   border-radius: calc(var(--corner-radius) * 2);
   background-clip: border-box;
-  box-shadow: 5px 5px black;
+  box-shadow: var(--board-shadow-size) var(--board-shadow-size) black;
 }
 
 .board-row:after {
@@ -66,7 +70,7 @@ body {
 
 .status {
   text-align: center;
-  font-size: calc(var(--size) * 3 / 8);
+  font-size: calc(var(--board-size) / 8);
   font-family: Optima, sans-serif;
   font-weight: bold;
   -webkit-text-stroke: 1px white;
@@ -74,21 +78,21 @@ body {
 }
 
 .option {
-  margin: 0 calc(var(--size) / 5);
-  width: calc(var(--size) * 1.1);
-  height: calc(var(--size) / 3);
+  margin: 0 calc(var(--board-size) / 15);
+  width: calc(var(--board-size) / 3 + 5vh);
+  height: calc(var(--board-size) / 10);
   background-color: var(--secondary);
   color: #000;
   font-weight: bold;
-  font-size: calc(var(--size) / 6);
-  border: 2px solid white;
-  border-radius: 7px;
+  font-size: calc(var(--board-size) / 18);
+  border: calc(var(--shadow-size) * 0.8) solid white;
+  border-radius: var(--shadow-size);
   background-clip: border-box;
-  box-shadow: 3px 3px black;
+  box-shadow: var(--shadow-size) var(--shadow-size) black;
 }
 
 .option:hover {
-  cursor: crosshair;
+  cursor: pointer;
 }
 
 .game {
