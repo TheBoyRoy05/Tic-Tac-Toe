@@ -1,10 +1,28 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Board from "./Board";
 import "./styles.css";
 
-const NUM_SQUARES = 4;
-document.documentElement.style.setProperty('--num-squares', NUM_SQUARES);
+const NUM_SQUARES = 3;
+document.documentElement.style.setProperty("--num-squares", NUM_SQUARES);
+
+function Moves({ showMoves, moves }) {
+  const className = "moves-container " + (showMoves ? "show" : "hide");
+  return (
+    <div className={className}>
+      <div className="moves-inner-container">
+        <div className="moves-header">Select a Past Board</div>
+        <div className="moves">{moves}</div>
+      </div>
+    </div>
+  );
+}
+
+// Prop Validation for Moves component
+Moves.propTypes = {
+  showMoves: PropTypes.bool.isRequired,
+  moves: PropTypes.node.isRequired,
+};
 
 // Option button component
 function Option({ text, handleClick }) {
@@ -30,6 +48,7 @@ export default function App() {
 
   const [history, setHistory] = useState([initBoard]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [showMoves, setShowMoves] = useState(false);
   const xIsNext = currentMove % 2 === 0;
   const board = history[currentMove];
 
@@ -47,27 +66,35 @@ export default function App() {
     // Update board
     const newBoard = board.map((row) => row.slice());
     newBoard[rowIndex][columnIndex] = xIsNext ? "X" : "O";
-    
+
     // Update history
     const newHistory = [...history.slice(0, currentMove + 1), newBoard];
     setHistory(newHistory);
     setCurrentMove(newHistory.length - 1);
   }
 
-  // Restarts the game
-  function Restart() {
+  function toggleMoves() {
+    setShowMoves(!showMoves);
+  }
+  
+  function restart() {
     setHistory([initBoard]);
     setCurrentMove(0);
+    setShowMoves(false);
+  }
+
+  function jumpTo(move) {
+    setCurrentMove(move);
+    setShowMoves(false);
   }
 
   // Create buttons to jump to past moves
   const moves = history.map((board, move) => {
     if (move <= 0) return;
-    const description = "Go to move #" + move;
     return (
-      <li key={move}>
-        <button className="move" onClick={() => setCurrentMove(move)}>{description}</button>
-      </li>
+      <button className="move" onClick={() => jumpTo(move)} key={move}>
+        <Board board={board} />
+      </button>
     );
   });
 
@@ -76,13 +103,11 @@ export default function App() {
     <div className="game">
       <div className="status">{status}</div>
       <Board board={board} squareClick={squareClick} />
-      <div className="game-info">
-        <ol className="moves">{moves}</ol>
-      </div>
       <div className="options">
-        <Option text="Restart" handleClick={Restart} />
-        <Option text="Time Travel" handleClick={Restart} />
+        <Option text="Restart" handleClick={restart} />
+        <Option text="Time Travel" handleClick={toggleMoves} />
       </div>
+      <Moves showMoves={showMoves} moves={moves} />
     </div>
   );
 }

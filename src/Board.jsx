@@ -1,10 +1,17 @@
 import PropTypes from "prop-types";
 
 // Square component for each cell
-function Square({ value, squareClick }) {
-  return (
-    <button className="square" onClick={squareClick}>
-      <p className={value}>{value}</p>
+function Square({ value, squareClick, isMini }) {
+  const prefix = isMini ? "mini-" : "";
+  const buttonClass = prefix + "square";
+  const textClass = prefix + "token " + value;
+  return isMini ? (
+    <div className={buttonClass} onClick={squareClick}>
+      <p className={textClass}>{value}</p>
+    </div>
+  ) : (
+    <button className={buttonClass} onClick={squareClick}>
+      <p className={textClass}>{value}</p>
     </button>
   );
 }
@@ -13,17 +20,22 @@ function Square({ value, squareClick }) {
 Square.propTypes = {
   value: PropTypes.string.isRequired,
   squareClick: PropTypes.func.isRequired,
+  isMini: PropTypes.bool,
 };
-
 
 // Board component for the entire board
 export default function Board({ board, squareClick }) {
+  const className = squareClick ? "board" : "mini-board";
+
   // Render each row
   const renderRow = (row, rowIndex) => {
     return row.map((column, columnIndex) => (
       <Square
         value={board[rowIndex][columnIndex]}
-        squareClick={() => squareClick(rowIndex, columnIndex)}
+        squareClick={
+          squareClick ? () => squareClick(rowIndex, columnIndex) : () => {}
+        }
+        isMini={squareClick ? false : true}
         key={columnIndex}
       />
     ));
@@ -39,7 +51,7 @@ export default function Board({ board, squareClick }) {
   });
 
   // Render the board and status
-  return <div className="board">{renderBoard}</div>;
+  return <div className={className}>{renderBoard}</div>;
 }
 
 // Prop Validation for Board component
@@ -47,5 +59,5 @@ Board.propTypes = {
   board: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   ).isRequired,
-  squareClick: PropTypes.func.isRequired,
+  squareClick: PropTypes.func,
 };
