@@ -1,8 +1,7 @@
-# React + Vite
+# Tic-Tac-Toe with TIME TRAVEL!!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a fun little game that I created after learning the basics of React. The idea behind the game is to save all the past states of the Tic-Tac-Toe board and make them accessible to the players so they can "go back in time" and fix their past mistakes. The game looks a little something like this: 
 
-Currently, two official plugins are available:
+![Tic Tac Toe Demo](/Images/TicTacToe.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Time Travel](/Images/TimeTravel.png)

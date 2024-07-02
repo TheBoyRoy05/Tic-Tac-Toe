@@ -21,7 +21,7 @@ body {
   font-family: Optima, sans-serif;
   font-weight: bold;
   -webkit-text-stroke: calc(var(--square-size) / 69) white;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .option {
