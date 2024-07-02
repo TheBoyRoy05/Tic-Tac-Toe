@@ -8,6 +8,7 @@ import "./Styles/board.css";
 const NUM_SQUARES = 3;
 document.documentElement.style.setProperty("--num-squares", NUM_SQUARES);
 
+// Past moves component
 function Moves({ showMoves, moves }) {
   const className = "moves-container " + (showMoves ? "show" : "hide");
   return (
@@ -57,7 +58,9 @@ export default function App() {
   // Update status
   const winner = calculateWinner(board);
   const status = winner
-    ? (winner === "Draw" ? "Tie Game" : "Winner: " + winner)
+    ? winner === "Draw"
+      ? "Tie Game"
+      : "Winner: " + winner
     : "Next player: " + (xIsNext ? "X" : "O");
 
   // Update the board and add it to history on square click event
@@ -78,7 +81,7 @@ export default function App() {
   function toggleMoves() {
     setShowMoves(!showMoves);
   }
-  
+
   function restart() {
     setHistory([initBoard]);
     setCurrentMove(0);
@@ -140,5 +143,5 @@ function calculateWinner(board) {
   if (diagonal2[0] && diagonal2.every((elem) => elem === diagonal2[0]))
     return diagonal2[0];
 
-  return board.some(row => row.some(col => col === "")) ? null : "Draw";
+  return board.some((row) => row.some((col) => col === "")) ? null : "Draw";
 }

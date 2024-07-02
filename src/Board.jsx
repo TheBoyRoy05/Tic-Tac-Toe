@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 // Square component for each cell
 function Square({ value, squareClick, isMini }) {
   const prefix = isMini ? "mini-" : "";
-  const buttonClass = prefix + "square";
-  const textClass = prefix + "token " + value;
+  const token = <p className={prefix + "token " + value}>{value}</p>;
   return isMini ? (
-    <div className={buttonClass} onClick={squareClick}>
-      <p className={textClass}>{value}</p>
-    </div>
+    <div className={prefix + "square"}>{token}</div>
   ) : (
-    <button className={buttonClass} onClick={squareClick}>
-      <p className={textClass}>{value}</p>
+    <button className={prefix + "square"} onClick={squareClick}>
+      {token}
     </button>
   );
 }
