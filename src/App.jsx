@@ -55,7 +55,7 @@ export default function App() {
   // Update status
   const winner = calculateWinner(board);
   const status = winner
-    ? "Winner: " + winner
+    ? (winner === "Draw" ? "Tie Game" : "Winner: " + winner)
     : "Next player: " + (xIsNext ? "X" : "O");
 
   // Update the board and add it to history on square click event
@@ -138,5 +138,5 @@ function calculateWinner(board) {
   if (diagonal2[0] && diagonal2.every((elem) => elem === diagonal2[0]))
     return diagonal2[0];
 
-  return null;
+  return board.some(row => row.some(col => col === "")) ? null : "Draw";
 }
