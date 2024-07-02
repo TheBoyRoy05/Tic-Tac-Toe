@@ -1,7 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Board from "./Board";
-import "./styles.css";
+import "./Styles/index.css";
+import "./Styles/moves.css";
+import "./Styles/board.css";
 
 const NUM_SQUARES = 3;
 document.documentElement.style.setProperty("--num-squares", NUM_SQUARES);

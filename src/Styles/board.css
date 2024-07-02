@@ -1,0 +1,82 @@
+.square,
+.mini-square {
+  background-color: var(--secondary);
+  border: 2px solid #000;
+  float: left;
+  line-height: var(--square-size);
+  margin: calc(var(--square-size) / 35);
+  height: var(--square-size);
+  width: var(--square-size);
+  text-align: center;
+  align-items: center;
+}
+
+.mini-square {
+  border: 1px solid #000;
+  line-height: var(--mini-square-size);
+  margin: calc(var(--mini-square-size) / 35);
+  height: var(--mini-square-size);
+  width: var(--mini-square-size);
+}
+
+.token {
+  -webkit-text-stroke: calc(var(--square-size) / 35) black;
+  font-size: calc(var(--square-size) * 5 / 8);
+  font-weight: bold;
+}
+
+.mini-token {
+  -webkit-text-stroke: calc(var(--mini-square-size) / 35) black;
+  font-size: calc(var(--mini-square-size) * 5 / 8);
+  font-weight: bold;
+}
+
+.O,
+.X {
+  margin: 0;
+  color: var(--primary);
+}
+
+.X {
+  filter: invert(1);
+}
+
+.board,
+.mini-board {
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: calc(var(--corner-radius) * 2);
+  background-clip: border-box;
+  box-shadow: var(--board-shadow-size) var(--board-shadow-size) black;
+}
+
+.mini-board {
+  box-shadow: none;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.board > div:first-of-type > button:first-of-type,
+.mini-board > div:first-of-type > div:first-of-type {
+  border-top-left-radius: var(--corner-radius);
+}
+
+.board > div:first-of-type > button:last-of-type,
+.mini-board > div:first-of-type > div:last-of-type {
+  border-top-right-radius: var(--corner-radius);
+}
+
+.board > div:last-of-type > button:first-of-type,
+.mini-board > div:last-of-type > div:first-of-type {
+  border-bottom-left-radius: var(--corner-radius);
+}
+
+.board > div:last-of-type > button:last-of-type,
+.mini-board > div:last-of-type > div:last-of-type {
+  border-bottom-right-radius: var(--corner-radius);
+}
