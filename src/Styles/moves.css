@@ -13,15 +13,15 @@
   padding: 7px;
   margin-top: -2vh;
   background-clip: border-box;
-  box-shadow: 5px 5px black, inset 0 0 0 7px white;
-  border: 3px solid black;
+  box-shadow: 5px 5px var(--secondary), inset 0 0 0 7px var(--primary);
+  border: 3px solid var(--primary);
   border-radius: 20px;
   max-width: 1025px;
 }
 
 .moves-inner-container {
   border-radius: 13px;
-  background-color: var(--tertiary);
+  background-color: #a4ebd8d6;
   background-clip: border-box;
   overflow-y: auto;
   height: inherit;
@@ -38,11 +38,13 @@
   text-align: center;
   font-size: calc(var(--mini-square-size) * 0.7);
   font-family: Optima, sans-serif;
-  margin: 7px auto;
-  background-color: white;
+  margin: 12px auto;
+  color: #c6ffcc;
+  background-color: var(--secondary);
   width: calc(var(--mini-square-size) * 8);
-  border: 2px solid black;
+  border: 2px solid var(--secondary);
   border-radius: 10px;
+  -webkit-text-stroke: calc(var(--square-size) / 200) #c6ffcc;
 }
 
 .moves-inner-container::-webkit-scrollbar {

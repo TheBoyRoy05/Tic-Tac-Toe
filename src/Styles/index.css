@@ -3,16 +3,17 @@
   --num-squares: 3;
   --square-size: calc(var(--board-size) / var(--num-squares));
   --mini-square-size: calc(var(--square-size) / 3);
-  --primary: rgb(90, 211, 211);
-  --secondary: #97dbeb;
-  --tertiary: rgba(54, 158, 228, 0.425);
+  --background: #a8ffbc;
+  --primary: #5bcee2;
+  --secondary: #5be2c7;
+  --tertiary: #c6ffcc;
   --corner-radius: 7px;
-  --shadow-size: calc(var(--board-size) / 90);
+  --shadow-size: calc(var(--board-size) / 90); 
   --board-shadow-size: calc(var(--shadow-size) * 1.1);
 }
 
 body {
-  background-color: var(--primary);
+  background-color: var(--background);
 }
 
 .status {
@@ -20,7 +21,7 @@ body {
   font-size: calc(var(--board-size) / 8);
   font-family: Optima, sans-serif;
   font-weight: bold;
-  -webkit-text-stroke: calc(var(--square-size) / 69) white;
+  color: var(--primary);
   margin: 20px 0;
 }
 
@@ -29,18 +30,18 @@ body {
   width: calc(var(--board-size) / 3 + 5vh);
   height: calc(var(--board-size) / 10);
   background-color: var(--secondary);
-  color: #000;
+  color: #c6ffcc;
   font-weight: bold;
   font-size: calc(var(--board-size) / 18);
-  border: calc(var(--shadow-size) * 0.8) solid white;
+  border: calc(var(--shadow-size) * 0.8) solid var(--secondary);
   border-radius: var(--shadow-size);
   background-clip: border-box;
-  box-shadow: var(--shadow-size) var(--shadow-size) black;
+  box-shadow: var(--shadow-size) var(--shadow-size) var(--primary);
 }
 
 .option:hover {
   cursor: pointer;
-  background-color: var(--tertiary);
+  background-color: var(--primary);
 }
 
 .game {

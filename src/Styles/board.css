@@ -1,7 +1,7 @@
 .square,
 .mini-square {
-  background-color: var(--secondary);
-  border: 2px solid #000;
+  background-color: var(--tertiary);
+  border: 2px solid var(--primary);
   float: left;
   line-height: var(--square-size);
   margin: calc(var(--square-size) / 35);
@@ -12,7 +12,7 @@
 }
 
 .mini-square {
-  border: 1px solid #000;
+  border: 1px solid var(--primary);
   line-height: var(--mini-square-size);
   margin: calc(var(--mini-square-size) / 35);
   height: var(--mini-square-size);
@@ -20,13 +20,11 @@
 }
 
 .token {
-  -webkit-text-stroke: calc(var(--square-size) / 35) black;
   font-size: calc(var(--square-size) * 5 / 8);
   font-weight: bold;
 }
 
 .mini-token {
-  -webkit-text-stroke: calc(var(--mini-square-size) / 35) black;
   font-size: calc(var(--mini-square-size) * 5 / 8);
   font-weight: bold;
 }
@@ -34,21 +32,21 @@
 .O,
 .X {
   margin: 0;
-  color: var(--primary);
+  color: #49beaa;
 }
 
 .X {
-  filter: invert(1);
+  color: #ef767a;
 }
 
 .board,
 .mini-board {
   padding: 5px;
-  background-color: #fff;
-  border: 1px solid black;
+  background-color: var(--primary);
+  border: 1px solid var(--secondary);
   border-radius: calc(var(--corner-radius) * 2);
   background-clip: border-box;
-  box-shadow: var(--board-shadow-size) var(--board-shadow-size) black;
+  box-shadow: var(--board-shadow-size) var(--board-shadow-size) var(--secondary);
 }
 
 .mini-board {
